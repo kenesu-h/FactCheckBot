@@ -34,21 +34,19 @@ public class FactCheck implements BotCommand {
     List<FactCheckClaim> results = model.search(this.query);
     this.channel.createMessage("Returning the top " + maxResults + " results:").block();
     int toLoop = Math.min(maxResults, results.size());
-    if (results != null) {
-      for (int i = 0; i < toLoop; i++) {
-        FactCheckClaim claim = results.get(i);
+    for (int i = 0; i < toLoop; i++) {
+      FactCheckClaim claim = results.get(i);
 
-        this.channel.createEmbed(spec ->
-            spec.setColor(Color.RED)
-                .setTitle(claim.getTitle())
-                .setUrl(claim.getUrl().toString())
-                .addField("Source", claim.getPublisher(), true)
-                .addField("Rating", claim.getTextualRating(), true)
-        ).block();
-      }
-      this.channel.createMessage("Results provided by Google. " + results.size() + " total results.").block();
-    } else {
-      this.channel.createMessage("No results found, sorry.").block();
+      this.channel.createEmbed(spec ->
+          spec.setColor(Color.RED)
+              .setTitle(claim.getTitle())
+              .setUrl(claim.getUrl().toString())
+              .addField("Claim", claim.getDescription(), false)
+              .addField("Source", claim.getPublisher(), true)
+              .addField("Rating", claim.getTextualRating(), true)
+      ).block();
     }
+    this.channel.createMessage("Results provided by Google. " + results.size() + " total results.")
+        .block();
   }
 }

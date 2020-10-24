@@ -5,7 +5,8 @@ import java.util.Date;
 
 /**
  * An interface representing a fact check claim with a title, language code (the language of the
- * claim), publisher, textual rating (how factual it's rated), review date, and URL.
+ * claim), publisher, textual rating (how factual it's rated), review date, description (the claim
+ * being made) and URL.
  */
 public interface FactCheckClaim {
 
@@ -43,6 +44,13 @@ public interface FactCheckClaim {
    * @return the review date
    */
   Date getReviewDate();
+
+  /**
+   * Returns the description of the claim.
+   *
+   * @return the description
+   */
+  String getDescription();
 
   /**
    * Returns the URL of the claim.

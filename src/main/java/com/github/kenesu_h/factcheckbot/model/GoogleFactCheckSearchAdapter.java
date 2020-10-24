@@ -55,6 +55,8 @@ public class GoogleFactCheckSearchAdapter implements FactCheckSearch {
       throw new IllegalStateException(
           "Unable to execute the Google search, received the following exception: "
               + ioe.getMessage());
+    } catch (NullPointerException npe) {
+      return new ArrayList<>();
     }
   }
 }

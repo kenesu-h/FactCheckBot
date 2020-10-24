@@ -28,6 +28,8 @@ public class FactCheckSearchTest {
       nuke = new FactCheckClaimImpl("Did Trump Ask Advisers About ‘Nuking’ Hurricanes?",
           "en", "Snopes", "Unproven",
           new Date(2019, 8, 27),
+          "U.S. President Donald Trump has asked his advisers about the feasibility of "
+              + "stopping hurricanes with nuclear bombs.",
           new URL("https://www.snopes.com/fact-check/trump-nuke-hurricanes/"));
       localClaims.add(nuke);
     } catch (MalformedURLException mue) {

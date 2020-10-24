@@ -21,6 +21,8 @@ public class FactCheckClaimTest {
       nuke = new FactCheckClaimImpl("Did Trump Ask Advisers About ‘Nuking’ Hurricanes?",
           "en", "Snopes", "Unproven",
           new Date(2019, 8, 27),
+          "U.S. President Donald Trump has asked his advisers about the feasibility of "
+              + "stopping hurricanes with nuclear bombs.",
           new URL("https://www.snopes.com/fact-check/trump-nuke-hurricanes/"));
     } catch (MalformedURLException mue) {
       fail("One or more URLs are malformed.");
@@ -55,6 +57,13 @@ public class FactCheckClaimTest {
   public void getReviewDate() {
     initData();
     assertEquals(new Date(2019, 8, 27), nuke.getReviewDate());
+  }
+
+  @Test
+  public void getDescription() {
+    initData();
+    assertEquals("U.S. President Donald Trump has asked his advisers about the feasibility "
+        + "of stopping hurricanes with nuclear bombs.", nuke.getDescription());
   }
 
   @Test

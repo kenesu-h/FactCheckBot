@@ -16,7 +16,8 @@ import java.util.Date;
  */
 public class GoogleFactCheckClaimAdapter implements FactCheckClaim {
 
-  private final GoogleFactcheckingFactchecktoolsV1alpha1ClaimReview claim;
+  private final GoogleFactcheckingFactchecktoolsV1alpha1Claim claim;
+  private final GoogleFactcheckingFactchecktoolsV1alpha1ClaimReview review;
 
   /**
    * Constructs a {@link GoogleFactCheckClaimAdapter} from a provided Google claim.
@@ -24,27 +25,32 @@ public class GoogleFactCheckClaimAdapter implements FactCheckClaim {
    * @param claim the Google claim
    */
   public GoogleFactCheckClaimAdapter(GoogleFactcheckingFactchecktoolsV1alpha1Claim claim) {
-    this.claim = claim.getClaimReview().get(0);
+    this.claim = claim;
+    this.review = claim.getClaimReview().get(0);
   }
 
   @Override
   public String getTitle() {
-    return this.claim.getTitle();
+    return this.review.getTitle();
+  }
+
+  public String getDescription() {
+    return this.claim.getText();
   }
 
   @Override
   public String getLanguageCode() {
-    return this.claim.getLanguageCode();
+    return this.review.getLanguageCode();
   }
 
   @Override
   public String getPublisher() {
-    return this.claim.getPublisher().getName();
+    return this.review.getPublisher().getName();
   }
 
   @Override
   public String getTextualRating() {
-    return this.claim.getTextualRating();
+    return this.review.getTextualRating();
   }
 
   @Override
@@ -53,7 +59,7 @@ public class GoogleFactCheckClaimAdapter implements FactCheckClaim {
       // Below code is from: https://stackoverflow.com/a/50058068
       String pattern = "yyyy-MM-dd'T'HH:mm:ssX";
       DateFormat df = new SimpleDateFormat(pattern);
-      return df.parse(this.claim.getReviewDate());
+      return df.parse(this.review.getReviewDate());
     } catch (ParseException pe) {
       throw new IllegalArgumentException(
           "Unable to parse date of Google claim format, received the following exception: "
@@ -64,7 +70,7 @@ public class GoogleFactCheckClaimAdapter implements FactCheckClaim {
   @Override
   public URL getUrl() {
     try {
-      return new URL(this.claim.getUrl());
+      return new URL(this.review.getUrl());
     } catch (MalformedURLException mue) {
       throw new IllegalArgumentException(
           "Unable to parse URL of Google claim format, received the following exception: "
